@@ -7,3 +7,12 @@ services:
       MYSQL_DATABASE: sample_db
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: pass
+
+  migratedb:
+    image: boxfuse/flyway:latest
+    volumes:
+      - ./flyway/sql:/flyway/sql
+      - ./flyway/conf:/flyway/conf
+    depends_on:
+      - mysqldb
+    command: migrate
